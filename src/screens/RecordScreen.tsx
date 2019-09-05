@@ -43,6 +43,10 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
   };
 
   _watchLocation = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      console.log(status);
+    }
     const { distance } = this.state;
     this.locationListener = await Location.watchPositionAsync(
       {
