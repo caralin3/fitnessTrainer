@@ -6,6 +6,7 @@
     "ios:pods": "cd ios && pod install && cd ..",
     "web": "expo start --web",
     "start": "react-native start",
+    "expo": "expo start",
     "lint": "tslint -c ./tslint.json --project ./tsconfig.json",
     "test": "jest"
   },
