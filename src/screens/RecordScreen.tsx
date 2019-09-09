@@ -2,7 +2,8 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import haversine from 'haversine';
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { startLocation, stopLocation, distance } from '../utility/location';
 
 // interface RecordScreenProps {}
 
@@ -12,6 +13,7 @@ interface RecordScreenState {
     latitude: number;
     longitude: number;
   };
+  started: boolean;
 }
 
 class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
@@ -21,17 +23,20 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
 
   state: RecordScreenState = {
     distance: 0,
-    prevCoords: { latitude: 0, longitude: 0 }
+    prevCoords: { latitude: 0, longitude: 0 },
+    started: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this._watchLocation();
+    // startLocation();
   }
 
   componentWillUnmount() {
     if (this.locationListener) {
       this.locationListener.remove();
     }
+    // stopLocation();
   }
 
   calcDist = (curCoords: { latitude: number; longitude: number }) => {
@@ -47,7 +52,7 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
     if (status !== 'granted') {
       console.log(status);
     }
-    const { distance } = this.state;
+    // const { distance } = this.state;
     this.locationListener = await Location.watchPositionAsync(
       {
         distanceInterval: 1,
@@ -60,7 +65,7 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
         };
         this.dist = this.dist + this.calcDist(curCoords);
         this.setState({
-          distance: distance + this.calcDist(curCoords),
+          // distance: distance + this.calcDist(curCoords),
           prevCoords: curCoords
         });
       }
@@ -68,11 +73,34 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
   };
 
   render() {
+    console.log('Dist', distance);
+
     return (
       <SafeAreaView>
         <View style={styles.container}>
-          <Text>Screen</Text>
-          <Text>Distance: {this.dist.toFixed(4)} mi</Text>
+          <Text style={styles.dist}>Distance: {distance.toFixed(3)} mi</Text>
+          {/* <Text>Distance: {this.dist.toFixed(3)} mi</Text> */}
+          {this.state.started ? (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                stopLocation();
+                this.setState({ started: false });
+              }}
+            >
+              <Text style={styles.dist}>Stop</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                startLocation();
+                this.setState({ started: true });
+              }}
+            >
+              <Text style={styles.dist}>Start</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </SafeAreaView>
     );
@@ -86,5 +114,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center'
+  },
+  dist: {
+    fontSize: 24
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 10,
+    marginVertical: 10
   }
 });

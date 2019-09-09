@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "expo": "^34.0.1",
+    "expo-task-manager": "^6.0.0",
     "haversine": "^1.1.1",
     "mem": "^4.0.0",
     "react": "16.8.3",
