@@ -4,6 +4,7 @@ import haversine from 'haversine';
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { startLocation, stopLocation, distance } from '../utility/location';
+import { Layout } from '../components';
 
 // interface RecordScreenProps {}
 
@@ -76,7 +77,7 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
     console.log('Dist', distance);
 
     return (
-      <SafeAreaView>
+      <Layout>
         <View style={styles.container}>
           <Text style={styles.dist}>Distance: {distance.toFixed(3)} mi</Text>
           {/* <Text>Distance: {this.dist.toFixed(3)} mi</Text> */}
@@ -102,7 +103,7 @@ class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
             </TouchableOpacity>
           )}
         </View>
-      </SafeAreaView>
+      </Layout>
     );
   }
 }

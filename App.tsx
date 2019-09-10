@@ -1,21 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { RecordScreen } from './src/screens';
+import { StyleSheet, View } from 'react-native';
+import { AppNavigator } from './src/navigation';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <Text>Open up App.tsx to start working on your app!</Text> */}
-      <RecordScreen />
+      <AppNavigator />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    flex: 1,
-    justifyContent: 'center'
+    flex: 1
   }
 });
