@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationComponent, NavigationScreenProps } from 'react-navigation';
 import { Button, Layout } from '../components';
-import Colors from '../constants/Colors';
-import Dimensions from '../constants/Dimensions';
+import { Colors, Dimensions } from '../constants';
 
 const DisconnectedWelcomeScreen: NavigationComponent = ({ navigation }: NavigationScreenProps) => {
   return (
