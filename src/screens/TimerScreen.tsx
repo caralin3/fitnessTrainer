@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 import { Layout } from '../components';
-// interface TimerScreenProps {}
 
-const DisconnectedTimerScreen: React.FC = () => {
+interface TimerScreenProps extends NavigationScreenProps {}
+
+const DisconnectedTimerScreen: React.FC<TimerScreenProps> = () => {
   return (
     <Layout>
       <Text>Timer</Text>

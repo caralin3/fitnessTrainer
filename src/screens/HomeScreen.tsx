@@ -1,10 +1,10 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabView, TabBar } from 'react-native-tab-view';
+import { NavigationScreenProps } from 'react-navigation';
 import { Layout, ProgramTileList, Tile } from '../components';
 import { Colors, Dimensions } from '../constants';
 import { categories, programs } from '../data';
-import { NavigationScreenProps } from 'react-navigation';
 
 interface TabViewProps {
   key: string;
@@ -59,7 +59,7 @@ const DisconnectedHomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <Layout>
       <ScrollView>
-        <Image resizeMode="cover" source={{ uri: 'https://picsum.photos/600/200' }} style={styles.feature} />
+        <Image resizeMode="cover" source={require('../assets/images/crunches.jpeg')} style={styles.feature} />
         <Text style={styles.heading}>Browse Programs</Text>
         <TabView
           swipeEnabled={false}
@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     padding: 10
   },
   feature: {
-    height: 200
+    // height: 200,
+    width: '100%'
   },
   row: {
     alignItems: 'center',

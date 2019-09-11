@@ -10,11 +10,9 @@ export interface CategoryItem {
 }
 
 export interface ProgramStep {
-  day?: number;
-  hour?: number;
-  minute?: number;
-  week?: number;
   description: string;
+  label: string;
+  parent: string;
 }
 
 export interface Alert {
@@ -30,8 +28,13 @@ export interface Program {
   duration: string;
   imgSrc: ImageSourcePropType;
   level: Level;
+  similar: string[]; // slugs
   slug: string;
-  steps: ProgramStep[];
+  outline: {
+    labels: string[];
+    sections: ProgramStep[];
+  };
+  tips?: string[];
   title: string;
   url?: string;
 }

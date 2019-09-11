@@ -3,10 +3,11 @@ import * as Permissions from 'expo-permissions';
 import haversine from 'haversine';
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 import { startLocation, stopLocation, distance } from '../utility/location';
 import { Layout } from '../components';
 
-// interface RecordScreenProps {}
+interface RecordScreenProps extends NavigationScreenProps {}
 
 interface RecordScreenState {
   distance: number;
@@ -17,7 +18,7 @@ interface RecordScreenState {
   started: boolean;
 }
 
-class DisconnectedRecordScreen extends React.Component<{}, RecordScreenState> {
+class DisconnectedRecordScreen extends React.Component<RecordScreenProps, RecordScreenState> {
   locationListener: { remove(): void } | null = null;
 
   dist: number = 0;

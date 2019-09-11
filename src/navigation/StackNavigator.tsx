@@ -4,10 +4,13 @@ import { CalendarScreen, HomeScreen, ProfileScreen, ProgramScreen, RecordScreen,
 
 const stackNavigatorConfig = {
   defaultNavigationOptions: ({ navigation }: NavigationScreenProps) => ({
-    title: navigation.state.routeName,
+    // headerBackTitleStyle: {
+    //   color: 'black'
+    // },
     headerStyle: {
       backgroundColor: '#ffc957'
-    }
+    },
+    title: navigation.state.routeName
   })
 };
 
