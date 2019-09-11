@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, ImageSourcePropType, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabView, TabBar } from 'react-native-tab-view';
-import { Layout, ProgramTile, Tile } from '../components';
+import { Layout, ProgramTileList, Tile } from '../components';
 import { Colors, Dimensions } from '../constants';
 
 // interface HomeScreenProps {}
@@ -122,29 +122,11 @@ const DisconnectedHomeScreen: React.FC = () => {
   const LevelScene = () => (
     <View style={styles.content}>
       <Text style={styles.sectionHeader}>Beginner</Text>
-      <View style={styles.row}>
-        {programs
-          .filter(p => p.level === 'beginner')
-          .map(p => (
-            <ProgramTile key={p.title} duration={p.duration} imgSrc={p.imgSrc} onPress={() => null} title={p.title} />
-          ))}
-      </View>
+      <ProgramTileList programs={programs.filter(p => p.level === 'beginner')} onPress={link => link} />
       <Text style={styles.sectionHeader}>Intermediate</Text>
-      <View style={styles.row}>
-        {programs
-          .filter(p => p.level === 'intermediate')
-          .map(p => (
-            <ProgramTile key={p.title} duration={p.duration} imgSrc={p.imgSrc} onPress={() => null} title={p.title} />
-          ))}
-      </View>
+      <ProgramTileList programs={programs.filter(p => p.level === 'intermediate')} onPress={link => link} />
       <Text style={styles.sectionHeader}>Advanced</Text>
-      <View style={styles.row}>
-        {programs
-          .filter(p => p.level === 'advanced')
-          .map(p => (
-            <ProgramTile key={p.title} duration={p.duration} imgSrc={p.imgSrc} onPress={() => null} title={p.title} />
-          ))}
-      </View>
+      <ProgramTileList programs={programs.filter(p => p.level === 'advanced')} onPress={link => link} />
     </View>
   );
 
