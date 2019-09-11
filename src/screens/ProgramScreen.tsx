@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View, Linking } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Layout, Row, Button, Accordion, ProgramTileList } from '../components';
 import { Program, programs } from '../data';
@@ -56,12 +56,12 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
             </View>
           )}
           {program.url && (
-            <Text
-              style={{ alignSelf: 'flex-end', color: 'tomato', fontWeight: 'bold', paddingTop: 10 }}
+            <TouchableOpacity
+              style={{ alignSelf: 'flex-end', paddingTop: 10 }}
               onPress={() => Linking.openURL(program.url || '')}
             >
-              View Source
-            </Text>
+              <Text style={{ color: 'tomato', fontWeight: 'bold' }}>View Source</Text>
+            </TouchableOpacity>
           )}
           <Button
             style={{ marginVertical: 10 }}
