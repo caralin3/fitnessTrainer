@@ -1,6 +1,6 @@
 import { NavigationScreenProps } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { CalendarScreen, HomeScreen, ProfileScreen, RecordScreen, TimerScreen } from '../screens';
+import { CalendarScreen, HomeScreen, ProfileScreen, ProgramScreen, RecordScreen, TimerScreen } from '../screens';
 
 const stackNavigatorConfig = {
   defaultNavigationOptions: ({ navigation }: NavigationScreenProps) => ({
@@ -14,6 +14,7 @@ const stackNavigatorConfig = {
 export const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
+    Program: ProgramScreen,
     Record: RecordScreen
   },
   stackNavigatorConfig

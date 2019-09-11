@@ -1,24 +1,26 @@
 import React from 'react';
-import { FlatList, ImageSourcePropType } from 'react-native';
+import { FlatList, StyleSheet, Text } from 'react-native';
 import { ProgramTile } from './ProgramTile';
+import { Program } from '../data';
 
 interface ProgramTileListProps {
   onPress: (link: string) => void;
-  programs: Array<{
-    category?: 'cardio' | 'strength' | 'yoga' | 'flexibility';
-    duration: string;
-    level: 'beginner' | 'intermediate' | 'advanced';
-    link: string;
-    imgSrc: ImageSourcePropType;
-    title: string;
-  }>;
+  programs: Program[];
 }
 
 export const ProgramTileList: React.FC<ProgramTileListProps> = ({ onPress, programs }) => (
   <FlatList
     data={programs}
-    renderItem={({ item, index }) => <ProgramTile key={index} {...item} onPress={() => onPress(item.link)} />}
+    renderItem={({ item, index }) => <ProgramTile key={index} {...item} onPress={() => onPress(item.slug)} />}
     horizontal={true}
     keyExtractor={item => item.title}
+    ListEmptyComponent={() => <Text style={styles.empty}>No programs</Text>}
   />
 );
+
+const styles = StyleSheet.create({
+  empty: {
+    color: 'gray',
+    paddingHorizontal: 10
+  }
+});

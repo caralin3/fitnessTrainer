@@ -1,14 +1,21 @@
 import React from 'react';
-import { Image, ImageSourcePropType, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SceneMap, TabView, TabBar } from 'react-native-tab-view';
 import { Layout, ProgramTileList, Tile } from '../components';
 import { Colors, Dimensions } from '../constants';
+import { categories, programs } from '../data';
+import { NavigationScreenProps } from 'react-navigation';
 
-// interface HomeScreenProps {}
+interface TabViewProps {
+  key: string;
+  title: string;
+}
 
-const DisconnectedHomeScreen: React.FC = () => {
+interface HomeScreenProps extends NavigationScreenProps {}
+
+const DisconnectedHomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  const [routes] = React.useState<Array<{ key: string; title: string }>>([
+  const [routes] = React.useState<TabViewProps[]>([
     {
       key: 'level',
       title: 'By Level'
@@ -19,114 +26,23 @@ const DisconnectedHomeScreen: React.FC = () => {
     }
   ]);
 
-  const categories: Array<{
-    imgSrc: ImageSourcePropType;
-    link: string;
-    title: string;
-  }> = [
-    {
-      imgSrc: require('../assets/images/running_4.jpeg'),
-      link: 'cardio',
-      title: 'Cardio'
-    },
-    {
-      imgSrc: require('../assets/images/strength.jpeg'),
-      link: 'strength',
-      title: 'Strength'
-    },
-    {
-      imgSrc: require('../assets/images/plank.jpeg'),
-      link: 'yoga',
-      title: 'Yoga'
-    },
-    {
-      imgSrc: require('../assets/images/yoga_2.jpeg'),
-      link: 'flexibility',
-      title: 'Flexibility'
-    }
-  ];
-
-  const programs: Array<{
-    category?: 'cardio' | 'strength' | 'yoga' | 'flexibility';
-    duration: string;
-    level: 'beginner' | 'intermediate' | 'advanced';
-    link: string;
-    imgSrc: ImageSourcePropType;
-    title: string;
-  }> = [
-    {
-      duration: '4 weeks',
-      level: 'beginner',
-      imgSrc: require('../assets/images/running.jpeg'),
-      link: 'mile',
-      title: 'Run 1 mile'
-    },
-    {
-      duration: '2 weeks',
-      level: 'beginner',
-      imgSrc: require('../assets/images/cycling.jpeg'),
-      link: 'mile',
-      title: 'Ride Bicycle for 3 miles'
-    },
-    {
-      duration: '30 mins',
-      level: 'beginner',
-      imgSrc: require('../assets/images/crunches.jpeg'),
-      link: 'mile',
-      title: 'Crunch Blaster for Ab Strength'
-    },
-    {
-      duration: '1 week',
-      level: 'intermediate',
-      imgSrc: require('../assets/images/rope.jpeg'),
-      link: 'mile',
-      title: 'Strength Builder'
-    },
-    {
-      duration: '3 weeks',
-      level: 'intermediate',
-      imgSrc: require('../assets/images/running_2.jpeg'),
-      link: 'mile',
-      title: 'Run 3 miles'
-    },
-    {
-      duration: '1 hour',
-      level: 'intermediate',
-      imgSrc: require('../assets/images/medicine_ball.jpeg'),
-      link: 'mile',
-      title: 'Lift 50lbs'
-    },
-    {
-      duration: '3 hours',
-      level: 'advanced',
-      imgSrc: require('../assets/images/yoga.jpeg'),
-      link: 'mile',
-      title: 'Intense Yoga'
-    },
-    {
-      duration: '2 weeks',
-      level: 'advanced',
-      imgSrc: require('../assets/images/cycling_2.jpeg'),
-      link: 'mile',
-      title: 'Cycle for 15 miles'
-    },
-    {
-      duration: '30 mins',
-      level: 'advanced',
-      imgSrc: require('../assets/images/running_3.jpeg'),
-      link: 'mile',
-      title: '100yd Sprint Intervals'
-    }
-  ];
-
   const LevelScene = () => (
     <View style={styles.content}>
       <Text style={styles.sectionHeader}>Beginner</Text>
-      <ProgramTileList programs={programs.filter(p => p.level === 'beginner')} onPress={link => link} />
+      <ProgramTileList
+        programs={programs.filter(p => p.level === 'beginner')}
+        onPress={slug => navigation.navigate('Program', { slug })}
+      />
       <Text style={styles.sectionHeader}>Intermediate</Text>
-      <ProgramTileList programs={programs.filter(p => p.level === 'intermediate')} onPress={link => link} />
+      <ProgramTileList
+        programs={programs.filter(p => p.level === 'intermediate')}
+        onPress={slug => navigation.navigate('Program', { slug })}
+      />
       <Text style={styles.sectionHeader}>Advanced</Text>
-      <ProgramTileList programs={programs.filter(p => p.level === 'advanced')} onPress={link => link} />
+      <ProgramTileList
+        programs={programs.filter(p => p.level === 'advanced')}
+        onPress={slug => navigation.navigate('Program', { slug })}
+      />
     </View>
   );
 
