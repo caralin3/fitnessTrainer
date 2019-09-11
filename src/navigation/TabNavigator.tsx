@@ -3,6 +3,7 @@ import { NavigationScreenProps } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Icon, IconType } from '../components/Icon';
 import { CalendarStack, HomeStack, ProfileStack, TimerStack } from './StackNavigator';
+import { Colors } from '../constants';
 
 export default createBottomTabNavigator(
   {
@@ -31,11 +32,11 @@ export default createBottomTabNavigator(
       }
     }),
     tabBarOptions: {
-      activeTintColor: 'white',
+      activeTintColor: Colors.accent,
       inactiveTintColor: 'black',
       showLabel: false,
       style: {
-        backgroundColor: '#ffc957'
+        backgroundColor: Colors.primary
       }
     }
   } as any // tslint:disable-line no-any

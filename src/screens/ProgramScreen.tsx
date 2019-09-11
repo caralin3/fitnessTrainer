@@ -60,7 +60,7 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
               style={{ alignSelf: 'flex-end', paddingTop: 10 }}
               onPress={() => Linking.openURL(program.url || '')}
             >
-              <Text style={{ color: 'tomato', fontWeight: 'bold' }}>View Source</Text>
+              <Text style={{ color: Colors.accent, fontWeight: 'bold' }}>View Source</Text>
             </TouchableOpacity>
           )}
           <Button
