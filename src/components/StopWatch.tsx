@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import { Row } from './Layout';
 import { Button } from './Button';
@@ -8,6 +8,8 @@ import { Colors } from '../constants';
 export interface StopWatchProps {}
 
 export const StopWatch: React.FC<StopWatchProps> = () => {
+  // tslint:disable-next-line no-any
+  let flatList: any;
   const [running, setRunning] = React.useState(false);
   const [start, setStart] = React.useState(false);
   const [laps, setLaps] = React.useState<string[]>([]);
@@ -49,7 +51,27 @@ export const StopWatch: React.FC<StopWatchProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Stopwatch laps msecs start={start} reset={reset} options={options} getTime={time => setCurrentTime(time)} />
+      <View style={StyleSheet.flatten([styles.stopwatch, running ? styles.circle : undefined])}>
+        <Stopwatch laps msecs start={start} reset={reset} options={options} getTime={time => setCurrentTime(time)} />
+      </View>
+      {running && laps.length > 0 && (
+        <View style={styles.laps}>
+          <FlatList
+            inverted
+            contentContainerStyle={{ alignItems: 'center', width: '100%' }}
+            ref={ref => (flatList = ref)}
+            onContentSizeChange={() => flatList.scrollToEnd({ animated: true })}
+            data={laps}
+            renderItem={({ item, index }) => (
+              <Row key={index} style={{ marginBottom: 10, width: '100%' }} align="center" justify="space-around">
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Lap {index + 1}</Text>
+                <Text style={{ fontSize: 16 }}>{item}</Text>
+              </Row>
+            )}
+            keyExtractor={(item, index) => item + index}
+          />
+        </View>
+      )}
       {!running ? (
         <Button size="lg" style={{ width: 125 }} bgColor={Colors.primary} text="Start" onPress={handleStart} />
       ) : (
@@ -63,17 +85,12 @@ export const StopWatch: React.FC<StopWatchProps> = () => {
             onPress={handleStop}
           />
           {!start ? (
-            <TouchableOpacity onPress={handleReset}>
-              <Text style={{ fontSize: 24 }}>Reset</Text>
-            </TouchableOpacity>
+            <Button size="lg" style={{ width: 125 }} color="white" bgColor="black" text="Reset" onPress={handleReset} />
           ) : (
-            <TouchableOpacity onPress={handleLap}>
-              <Text style={{ fontSize: 24 }}>Lap</Text>
-            </TouchableOpacity>
+            <Button size="lg" style={{ width: 125 }} color="white" bgColor="black" text="Lap" onPress={handleLap} />
           )}
         </Row>
       )}
-      {running && laps.length > 0 && laps.map((time, index) => <Text key={index}>{time}</Text>)}
       {/* <Timer
         totalDuration={totalDuration}
         msecs
@@ -97,7 +114,7 @@ const options = {
     alignItems: 'center'
   },
   text: {
-    fontSize: 40
+    fontSize: 36
   }
 };
 
@@ -106,5 +123,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'space-around'
+  },
+  stopwatch: {
+    height: 250,
+    justifyContent: 'center',
+    width: 250
+  },
+  circle: {
+    borderColor: Colors.primary,
+    borderRadius: 250 / 2,
+    borderWidth: 3
+  },
+  laps: {
+    alignItems: 'center',
+    height: 150,
+    width: '100%'
   }
 });
