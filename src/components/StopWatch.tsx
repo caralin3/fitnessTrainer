@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
+import { Stopwatch } from 'react-native-stopwatch-timer';
 import { Row } from './Layout';
 import { Button } from './Button';
 import { Colors } from '../constants';
@@ -15,19 +15,6 @@ export const StopWatch: React.FC<StopWatchProps> = () => {
   const [laps, setLaps] = React.useState<string[]>([]);
   const [reset, setReset] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState('');
-  // const [timerStart, setTimerStart] = React.useState(false);
-  // const [timerReset, setTimerReset] = React.useState(false);
-  // const [totalDuration, setTotalDuration] = React.useState(60000);
-
-  // const toggleTimer = () => {
-  //   setTimerStart(!start);
-  //   setTimerReset(false);
-  // };
-
-  // const resetTimer = () => {
-  //   setTimerStart(false);
-  //   setTimerReset(true);
-  // };
 
   const handleStart = () => {
     setRunning(true);
@@ -91,20 +78,6 @@ export const StopWatch: React.FC<StopWatchProps> = () => {
           )}
         </Row>
       )}
-      {/* <Timer
-        totalDuration={totalDuration}
-        msecs
-        start={timerStart}
-        reset={timerReset}
-        options={options}
-        handleFinish={() => null}
-      />
-      <TouchableOpacity onPress={toggleTimer}>
-        <Text style={{ fontSize: 30 }}>{!timerStart ? 'Start' : 'Stop'}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={resetTimer}>
-        <Text style={{ fontSize: 30 }}>Reset</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };

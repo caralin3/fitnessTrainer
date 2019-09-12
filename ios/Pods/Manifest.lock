@@ -25,6 +25,11 @@ PODS:
   - EXSQLite (6.0.0):
     - UMCore
     - UMFileSystemInterface
+  - EXTaskManager (6.0.0):
+    - EXAppLoaderProvider
+    - UMConstantsInterface
+    - UMCore
+    - UMTaskManagerInterface
   - EXWebBrowser (6.0.0):
     - UMCore
   - Folly (2018.10.22.00):
@@ -121,6 +126,7 @@ DEPENDENCIES:
   - EXLocation (from `../node_modules/expo-location/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
+  - EXTaskManager (from `../node_modules/expo-task-manager/ios`)
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -189,6 +195,9 @@ EXTERNAL SOURCES:
   EXSQLite:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-sqlite/ios"
+  EXTaskManager:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-task-manager/ios"
   EXWebBrowser:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-web-browser/ios"
@@ -255,6 +264,7 @@ SPEC CHECKSUMS:
   EXLocation: 4eb76115832f08b1e78003b335c210e18fa60424
   EXPermissions: 99e52dc3e5f8e55153f1958004f6df2a30a1f2f5
   EXSQLite: 8dab6a5ab1b78be7925073d6071eb22095d4dda6
+  EXTaskManager: 2cff8c104c212fa67cab08a10946ba268a4cf5e5
   EXWebBrowser: def838b95aa9d396f9ce71ace4e614ee16e7ee30
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
