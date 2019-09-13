@@ -1,15 +1,15 @@
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-import haversine from 'haversine';
+// import * as Location from 'expo-location';
+// import * as Permissions from 'expo-permissions';
+// import haversine from 'haversine';
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { startLocation, stopLocation, distance } from '../utility/location';
 import { Layout } from '../components';
 
-interface RecordScreenProps extends NavigationScreenProps {}
+interface WorkoutScreenProps extends NavigationScreenProps {}
 
-interface RecordScreenState {
+interface WorkoutScreenState {
   distance: number;
   prevCoords: {
     latitude: number;
@@ -18,21 +18,21 @@ interface RecordScreenState {
   started: boolean;
 }
 
-class DisconnectedRecordScreen extends React.Component<RecordScreenProps, RecordScreenState> {
+class DisconnectedWorkoutScreen extends React.Component<WorkoutScreenProps, WorkoutScreenState> {
   locationListener: { remove(): void } | null = null;
 
   dist: number = 0;
 
-  state: RecordScreenState = {
+  state: WorkoutScreenState = {
     distance: 0,
     prevCoords: { latitude: 0, longitude: 0 },
     started: false
   };
 
-  async componentDidMount() {
-    this._watchLocation();
-    // startLocation();
-  }
+  // async componentDidMount() {
+  //   this._watchLocation();
+  //   // startLocation();
+  // }
 
   componentWillUnmount() {
     if (this.locationListener) {
@@ -41,41 +41,41 @@ class DisconnectedRecordScreen extends React.Component<RecordScreenProps, Record
     // stopLocation();
   }
 
-  calcDist = (curCoords: { latitude: number; longitude: number }) => {
-    const { prevCoords } = this.state;
-    if (prevCoords.latitude && prevCoords.longitude) {
-      return haversine(prevCoords, curCoords, { unit: 'mile' });
-    }
-    return 0;
-  };
+  // calcDist = (curCoords: { latitude: number; longitude: number }) => {
+  //   const { prevCoords } = this.state;
+  //   if (prevCoords.latitude && prevCoords.longitude) {
+  //     return haversine(prevCoords, curCoords, { unit: 'mile' });
+  //   }
+  //   return 0;
+  // };
 
-  _watchLocation = async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      console.log(status);
-    }
-    // const { distance } = this.state;
-    this.locationListener = await Location.watchPositionAsync(
-      {
-        distanceInterval: 1,
-        accuracy: Location.Accuracy.Highest
-      },
-      location => {
-        const curCoords = {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude
-        };
-        this.dist = this.dist + this.calcDist(curCoords);
-        this.setState({
-          // distance: distance + this.calcDist(curCoords),
-          prevCoords: curCoords
-        });
-      }
-    );
-  };
+  // _watchLocation = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.LOCATION);
+  //   if (status !== 'granted') {
+  //     console.log(status);
+  //   }
+  //   // const { distance } = this.state;
+  //   this.locationListener = await Location.watchPositionAsync(
+  //     {
+  //       distanceInterval: 1,
+  //       accuracy: Location.Accuracy.Highest
+  //     },
+  //     location => {
+  //       const curCoords = {
+  //         latitude: location.coords.latitude,
+  //         longitude: location.coords.longitude
+  //       };
+  //       this.dist = this.dist + this.calcDist(curCoords);
+  //       this.setState({
+  //         // distance: distance + this.calcDist(curCoords),
+  //         prevCoords: curCoords
+  //       });
+  //     }
+  //   );
+  // };
 
   render() {
-    console.log('Dist', distance);
+    // console.log('Dist', distance);
 
     return (
       <Layout>
@@ -109,7 +109,7 @@ class DisconnectedRecordScreen extends React.Component<RecordScreenProps, Record
   }
 }
 
-export const RecordScreen = DisconnectedRecordScreen;
+export const WorkoutScreen = DisconnectedWorkoutScreen;
 
 const styles = StyleSheet.create({
   container: {

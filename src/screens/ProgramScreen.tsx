@@ -68,7 +68,7 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
             bgColor={Colors.primary}
             size="md"
             text="Start Program"
-            onPress={() => navigation.navigate('Record')}
+            onPress={() => navigation.navigate('ProgramMenu', { slug: program.slug, title: program.title })}
           />
           <View style={{ paddingVertical: 10 }}>
             {program.outline &&

@@ -5,15 +5,19 @@ import { Icon } from './Icon';
 import { Row } from './Layout';
 
 interface AccordionProps {
+  bgColor?: string;
   onOpen: () => void;
   open: boolean;
   style?: StyleProp<ViewStyle>;
   title: string;
 }
 
-export const Accordion: React.SFC<AccordionProps> = ({ children, open, onOpen, style, title }) => (
+export const Accordion: React.SFC<AccordionProps> = ({ bgColor, children, open, onOpen, style, title }) => (
   <View style={StyleSheet.flatten([style, { flex: 1 }])}>
-    <TouchableOpacity style={styles.sectionHeader} onPress={onOpen}>
+    <TouchableOpacity
+      style={StyleSheet.flatten([styles.sectionHeader, { backgroundColor: bgColor ? bgColor : '#ddd' }])}
+      onPress={onOpen}
+    >
       <Row align="center" justify="space-between">
         <Text style={styles.sectionTitle}>{title}</Text>
         <Icon color="black" size={24} type="MI" name={`keyboard-arrow-${open ? 'up' : 'down'}`} />
@@ -25,7 +29,6 @@ export const Accordion: React.SFC<AccordionProps> = ({ children, open, onOpen, s
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    backgroundColor: '#f2f2f2',
     padding: 5
   },
   sectionTitle: {

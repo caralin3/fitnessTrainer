@@ -15,8 +15,7 @@ export const programs: Program[] = [
       sections: [
         {
           description:
-            'Run 1/16 mile, walk 3/16 mile; repeat 4 times \
-          (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
+            'Run 1/16 mile, walk 3/16 mile; repeat 4 times (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
           label: 'Day 1',
           parent: 'Week 1'
         },
@@ -27,8 +26,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/16 mile, walk 3/16 mile; repeat 4 times \
-          (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
+            'Run 1/16 mile, walk 3/16 mile; repeat 4 times (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
           label: 'Day 3',
           parent: 'Week 1'
         },
@@ -39,8 +37,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/16 mile, walk 3/16 mile; repeat 4 times \
-          (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
+            'Run 1/16 mile, walk 3/16 mile; repeat 4 times (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
           label: 'Day 5',
           parent: 'Week 1'
         },
@@ -56,8 +53,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/8 mile, walk 1/8 mile; repeat 4 times \
-          (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
+            'Run 1/8 mile, walk 1/8 mile; repeat 4 times (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
           label: 'Day 1',
           parent: 'Week 2'
         },
@@ -68,8 +64,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/8 mile, walk 1/8 mile; repeat 4 times \
-          (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
+            'Run 1/8 mile, walk 1/8 mile; repeat 4 times (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
           label: 'Day 3',
           parent: 'Week 2'
         },
@@ -80,8 +75,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/8 mile, walk 1/8 mile; repeat 4 times \
-          (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
+            'Run 1/8 mile, walk 1/8 mile; repeat 4 times (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
           label: 'Day 5',
           parent: 'Week 2'
         },
@@ -97,8 +91,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 3/16 mile, walk 1/16 mile; repeat 4 times \
-          (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
+            'Run 3/16 mile, walk 1/16 mile; repeat 4 times (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
           label: 'Day 1',
           parent: 'Week 3'
         },
@@ -109,8 +102,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 3/16 mile, walk 1/16 mile; repeat 4 times \
-          (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
+            'Run 3/16 mile, walk 1/16 mile; repeat 4 times (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
           label: 'Day 3',
           parent: 'Week 3'
         },
@@ -121,8 +113,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 3/16 mile, walk 1/16 mile; repeat 4 times \
-          (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
+            'Run 3/16 mile, walk 1/16 mile; repeat 4 times (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
           label: 'Day 5',
           parent: 'Week 3'
         },
