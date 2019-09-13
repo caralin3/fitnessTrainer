@@ -1,5 +1,5 @@
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
+// import * as Permissions from 'expo-permissions';
 import * as TaskManager from 'expo-task-manager';
 import haversine from 'haversine';
 
@@ -24,10 +24,10 @@ export const calcDist = (curCoords: Coordinate) => {
 
 // tslint:disable-next-line no-any
 export const handleLocationUpdates = async ({ data, error }: any) => {
-  const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  if (status !== 'granted') {
-    console.log(status);
-  }
+  // const { status } = await Permissions.askAsync(Permissions.LOCATION);
+  // if (status !== 'granted') {
+  //   console.log(status);
+  // }
 
   if (error) {
     console.log(error);

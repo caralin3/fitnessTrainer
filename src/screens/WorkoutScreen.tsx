@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
+import { Stopwatch } from 'react-native-stopwatch-timer';
 import { Button, Layout, Row } from '../components';
 import { Program, ProgramStep, programs } from '../data';
 import { Colors } from '../constants';
+import { distance, resetDistance, startLocation, stopLocation } from '../utility/location';
 
 interface WorkoutScreenProps extends NavigationScreenProps {}
 
@@ -12,7 +14,6 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
   const [workout, setWorkout] = React.useState<ProgramStep>({} as ProgramStep);
   const [running, setRunning] = React.useState(false);
   const [start, setStart] = React.useState(false);
-  const [laps, setLaps] = React.useState<string[]>([]);
   const [reset, setReset] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState('');
 
@@ -20,6 +21,21 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     setRunning(true);
     setStart(true);
     setReset(false);
+    startLocation();
+  };
+
+  const handleStop = () => {
+    setStart(!start);
+    setReset(false);
+    stopLocation();
+  };
+
+  const handleReset = () => {
+    setRunning(false);
+    setStart(false);
+    setReset(true);
+    setLaps([]);
+    resetDistance();
   };
 
   React.useEffect(() => {
@@ -42,9 +58,40 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
           <Text style={{ alignSelf: 'center', fontSize: 16, fontWeight: 'bold' }}>{workout.label}</Text>
           <Text style={{ paddingTop: 10 }}>{workout.description}</Text>
         </View>
-        <Row align="center" justify="space-between">
-          <Button size="md" style={{ width: 125 }} bgColor={Colors.primary} text="Start" onPress={handleStart} />
+        <Row style={{ width: '100%' }} align="center" justify="space-around">
+          <View style={styles.stats}>
+            <Text style={styles.statLabel}>Time</Text>
+            <Stopwatch start={start} reset={reset} options={options} getTime={time => setCurrentTime(time)} />
+          </View>
+          <View style={styles.stats}>
+            <Text style={styles.statLabel}>Distance</Text>
+            <Text style={styles.stat}>{distance.toFixed(2)}</Text>
+          </View>
         </Row>
+        {!running ? (
+          <Button size="lg" style={{ width: 125 }} bgColor={Colors.primary} text="Start" onPress={handleStart} />
+        ) : (
+          <Row style={{ width: '100%' }} align="center" justify="space-around">
+            <Button
+              size="lg"
+              style={{ width: 125 }}
+              bgColor={!start ? Colors.primary : Colors.accent}
+              color={!start ? 'black' : 'white'}
+              text={!start ? 'Resume' : 'Stop'}
+              onPress={handleStop}
+            />
+            {!start && (
+              <Button
+                size="lg"
+                style={{ width: 125 }}
+                color="white"
+                bgColor="black"
+                text="Reset"
+                onPress={handleReset}
+              />
+            )}
+          </Row>
+        )}
       </View>
     </Layout>
   );
@@ -52,9 +99,30 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
 
 export const WorkoutScreen = DisconnectedWorkoutScreen;
 
+const options = {
+  container: {
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 22
+  }
+};
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between',
+    marginBottom: 10
+  },
+  stats: {
+    alignItems: 'center'
+  },
+  statLabel: {
+    fontSize: 22,
+    fontWeight: 'bold'
+  },
+  stat: {
+    fontSize: 22
   }
 });
