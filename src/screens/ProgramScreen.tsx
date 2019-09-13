@@ -32,6 +32,7 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
   const handleStartProgram = async (slug: string, title: string) => {
     navigation.navigate('ProgramMenu', { slug, title });
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    const { status: notifcationStatus } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
       console.log(status);
     }

@@ -1,3 +1,4 @@
+import { Notifications } from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
@@ -16,6 +17,42 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
   const [start, setStart] = React.useState(false);
   const [reset, setReset] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState('');
+  const [currentDist, setCurrentDist] = React.useState(distance);
+  const [alertsShown, setAlertsShown] = React.useState<number[]>([]);
+  const [step, setStep] = React.useState('');
+
+  React.useEffect(() => {
+    const slug = navigation.getParam('slug');
+    const stepParam = navigation.getParam('step') as ProgramStep;
+    const [prog] = programs.filter(p => p.slug === slug);
+    const [progStep] = prog.outline.sections.filter(p => p.label === stepParam.label);
+    Notifications.addListener(notification => console.log(notification));
+    if (prog) {
+      setProgram(prog);
+    }
+    if (progStep) {
+      setWorkout(progStep);
+    }
+  }, [navigation.getParam('step')]);
+
+  React.useEffect(() => {
+    setCurrentDist(distance);
+    const slug = navigation.getParam('slug');
+    const [prog] = programs.filter(p => p.slug === slug);
+    console.log(distance);
+    if (prog) {
+      prog.alerts.forEach((alert, index) => {
+        if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
+          setAlertsShown([...alertsShown, index]);
+          setStep(alert.body);
+          Notifications.presentLocalNotificationAsync({
+            body: alert.body,
+            title: alert.title
+          });
+        }
+      });
+    }
+  }, [distance]);
 
   const handleStart = () => {
     setRunning(true);
@@ -34,22 +71,20 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     setRunning(false);
     setStart(false);
     setReset(true);
-    setLaps([]);
     resetDistance();
+    setStep('');
   };
 
-  React.useEffect(() => {
-    const slug = navigation.getParam('slug');
-    const step = navigation.getParam('step') as ProgramStep;
-    const [prog] = programs.filter(p => p.slug === slug);
-    const [progStep] = prog.outline.sections.filter(p => p.label === step.label);
-    if (prog) {
-      setProgram(prog);
-    }
-    if (progStep) {
-      setWorkout(progStep);
-    }
-  }, [navigation.getParam('step')]);
+  const startNotifications = (prog: Program) => {
+    prog.alerts.forEach(alert => {
+      if (distance === alert.distance) {
+        Notifications.presentLocalNotificationAsync({
+          body: alert.body,
+          title: alert.title
+        });
+      }
+    });
+  };
 
   return (
     <Layout>
@@ -58,6 +93,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
           <Text style={{ alignSelf: 'center', fontSize: 16, fontWeight: 'bold' }}>{workout.label}</Text>
           <Text style={{ paddingTop: 10 }}>{workout.description}</Text>
         </View>
+        <Text style={{ fontSize: 26, fontWeight: 'bold' }}>{step}</Text>
         <Row style={{ width: '100%' }} align="center" justify="space-around">
           <View style={styles.stats}>
             <Text style={styles.statLabel}>Time</Text>
@@ -65,7 +101,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
           </View>
           <View style={styles.stats}>
             <Text style={styles.statLabel}>Distance</Text>
-            <Text style={styles.stat}>{distance.toFixed(2)}</Text>
+            <Text style={styles.stat}>{currentDist.toFixed(2)}</Text>
           </View>
         </Row>
         {!running ? (
