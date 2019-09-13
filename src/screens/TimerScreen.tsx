@@ -13,7 +13,7 @@ interface TabViewProps {
 interface TimerScreenProps extends NavigationScreenProps {}
 
 const DisconnectedTimerScreen: React.FC<TimerScreenProps> = ({ navigation }) => {
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(1);
   const [routes] = React.useState<TabViewProps[]>([
     {
       key: 'stopWatch',
