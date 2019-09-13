@@ -2,7 +2,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import haversine from 'haversine';
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { startLocation, stopLocation, distance } from '../utility/location';
 import { Layout } from '../components';
