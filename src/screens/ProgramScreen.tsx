@@ -1,9 +1,11 @@
+import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Layout, Row, Button, Accordion, ProgramTileList } from '../components';
 import { Program, programs } from '../data';
 import { isAndroid, Colors } from '../constants';
+import { registerForPushNotificationsAsync } from '../utility';
 
 interface ProgramScreenProps extends NavigationScreenProps {}
 
@@ -25,6 +27,15 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
     if (scrollRef.current) {
       // tslint:disable-next-line no-any
       (scrollRef.current as any).scrollTo({ x: 0, y: 0, animated: true });
+    }
+  };
+
+  const handleStartProgram = async (slug: string, title: string) => {
+    navigation.navigate('ProgramMenu', { slug, title });
+    await registerForPushNotificationsAsync();
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      console.log(status);
     }
   };
 
@@ -68,7 +79,7 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
             bgColor={Colors.primary}
             size="md"
             text="Start Program"
-            onPress={() => navigation.navigate('Record')}
+            onPress={() => handleStartProgram(program.slug, program.title)}
           />
           <View style={{ paddingVertical: 10 }}>
             {program.outline &&

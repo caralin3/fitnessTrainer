@@ -1,9 +1,18 @@
 import React from 'react';
 import { NavigationScreenProps } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { CalendarScreen, HomeScreen, ProfileScreen, ProgramScreen, RecordScreen, TimerScreen } from '../screens';
+import {
+  CalendarScreen,
+  HomeScreen,
+  ProfileScreen,
+  ProgramScreen,
+  ProgramMenuScreen,
+  TimerScreen,
+  WorkoutScreen
+} from '../screens';
 import { Colors, isAndroid } from '../constants';
 import { Icon } from '../components';
+import { ProgramStep } from '../data';
 
 const headerBackImage = () =>
   isAndroid ? (
@@ -33,8 +42,25 @@ export const HomeStack = createStackNavigator(
         headerBackTitle: 'Browse'
       }
     },
-    Program: ProgramScreen,
-    Record: RecordScreen
+    Program: {
+      screen: ProgramScreen,
+      navigationOptions: {
+        headerBackTitle: 'Details'
+      }
+    },
+    ProgramMenu: {
+      screen: ProgramMenuScreen,
+      navigationOptions: ({ navigation }: NavigationScreenProps) => ({
+        headerBackTitle: 'Choose',
+        title: navigation.getParam('title')
+      })
+    },
+    Workout: {
+      screen: WorkoutScreen,
+      navigationOptions: ({ navigation }: NavigationScreenProps) => ({
+        title: navigation.getParam('title')
+      })
+    }
   },
   stackNavigatorConfig
 );

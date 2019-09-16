@@ -10,13 +10,55 @@ export const programs: Program[] = [
     imgSrc: require('../assets/images/running.jpeg'),
     similar: ['beginner-run-2-mile', 'beginner-run-faster-mile'],
     slug: 'beginner-run-1-mile',
+    alerts: [
+      {
+        distance: 0,
+        body: 'Run for 1/16 of a mile',
+        title: 'Start Running'
+      },
+      {
+        // distance: 0.02,
+        distance: 1 / 16,
+        body: 'Walk for 3/16 of a mile',
+        title: 'Start Walking'
+      },
+      {
+        distance: 4 / 16,
+        body: 'Run for 1/16 of a mile',
+        title: 'Start Running'
+      },
+      {
+        distance: 5 / 16,
+        body: 'Walk for 3/16 of a mile',
+        title: 'Start Walking'
+      },
+      {
+        distance: 8 / 16,
+        body: 'Run for 1/16 of a mile',
+        title: 'Start Running'
+      },
+      {
+        distance: 9 / 16,
+        body: 'Walk for 3/16 of a mile',
+        title: 'Start Walking'
+      },
+      {
+        distance: 12 / 6,
+        body: 'Run for 1/16 of a mile',
+        title: 'Start Running'
+      },
+      {
+        distance: 13 / 16,
+        body: 'Walk for 3/16 of a mile',
+        title: 'Start Walking'
+      }
+    ],
     outline: {
       labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
       sections: [
         {
           description:
-            'Run 1/16 mile, walk 3/16 mile; repeat 4 times \
-          (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
+            'Run 1/16 mile, walk 3/16 mile; repeat 4 times (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
           label: 'Day 1',
           parent: 'Week 1'
         },
@@ -27,8 +69,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/16 mile, walk 3/16 mile; repeat 4 times \
-          (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
+            'Run 1/16 mile, walk 3/16 mile; repeat 4 times (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
           label: 'Day 3',
           parent: 'Week 1'
         },
@@ -39,8 +80,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/16 mile, walk 3/16 mile; repeat 4 times \
-          (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
+            'Run 1/16 mile, walk 3/16 mile; repeat 4 times (Track equivalent: Run 1/4 of a lap, walk 3/4 of a lap; repeat 4 times)',
           label: 'Day 5',
           parent: 'Week 1'
         },
@@ -56,8 +96,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/8 mile, walk 1/8 mile; repeat 4 times \
-          (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
+            'Run 1/8 mile, walk 1/8 mile; repeat 4 times (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
           label: 'Day 1',
           parent: 'Week 2'
         },
@@ -68,8 +107,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/8 mile, walk 1/8 mile; repeat 4 times \
-          (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
+            'Run 1/8 mile, walk 1/8 mile; repeat 4 times (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
           label: 'Day 3',
           parent: 'Week 2'
         },
@@ -80,8 +118,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 1/8 mile, walk 1/8 mile; repeat 4 times \
-          (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
+            'Run 1/8 mile, walk 1/8 mile; repeat 4 times (Track equivalent: Run 1/2 a lap, walk 1/2 a lap; repeat 4 times)',
           label: 'Day 5',
           parent: 'Week 2'
         },
@@ -97,8 +134,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 3/16 mile, walk 1/16 mile; repeat 4 times \
-          (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
+            'Run 3/16 mile, walk 1/16 mile; repeat 4 times (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
           label: 'Day 1',
           parent: 'Week 3'
         },
@@ -109,8 +145,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 3/16 mile, walk 1/16 mile; repeat 4 times \
-          (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
+            'Run 3/16 mile, walk 1/16 mile; repeat 4 times (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
           label: 'Day 3',
           parent: 'Week 3'
         },
@@ -121,8 +156,7 @@ export const programs: Program[] = [
         },
         {
           description:
-            'Run 3/16 mile, walk 1/16 mile; repeat 4 times \
-          (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
+            'Run 3/16 mile, walk 1/16 mile; repeat 4 times (Track equivalent: Run 3/4 of a lap, walk 1/4 of a lap; repeat 4 times)',
           label: 'Day 5',
           parent: 'Week 3'
         },
@@ -190,6 +224,7 @@ export const programs: Program[] = [
     imgSrc: require('../assets/images/running_2.jpeg'),
     similar: ['beginner-run-1-mile', 'beginner-run-faster-mile'],
     slug: 'beginner-run-2-mile',
+    alerts: [],
     outline: {
       labels: ['Week 1', 'Week 2', 'Week 3'],
       sections: [
@@ -369,6 +404,7 @@ export const programs: Program[] = [
     imgSrc: require('../assets/images/running_3.jpeg'),
     similar: ['beginner-run-1-mile', 'beginner-run-2-mile'],
     slug: 'beginner-run-faster-mile',
+    alerts: [],
     outline: {
       labels: ['Week 1', 'Week 2'],
       sections: [
