@@ -47,7 +47,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     setCurrentDist(distance);
     const slug = navigation.getParam('slug');
     const [prog] = programs.filter(p => p.slug === slug);
-    console.log(distance, running);
+    console.log(distance);
     if (prog) {
       prog.alerts.forEach((alert, index) => {
         if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
@@ -57,7 +57,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
         }
       });
     }
-  }, [running, distance]);
+  }, [running, start, distance]);
 
   const handleStart = () => {
     setRunning(true);
@@ -78,6 +78,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     setReset(true);
     resetDistance();
     setStep('');
+    setAlertsShown([]);
   };
 
   return (
