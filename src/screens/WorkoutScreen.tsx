@@ -6,11 +6,13 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 import { Button, Layout, Row } from '../components';
 import { Program, ProgramStep, programs } from '../data';
 import { Colors } from '../constants';
-import { distance, resetDistance, startLocation, stopLocation } from '../utility/location';
+import { distance, resetDistance, sendPushNotification, startLocation, stopLocation } from '../utility';
 
 interface WorkoutScreenProps extends NavigationScreenProps {}
 
 const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation }) => {
+  // tslint:disable-next-line no-any
+  let _notificationSubscription: any;
   const [program, setProgram] = React.useState<Program>({} as Program);
   const [workout, setWorkout] = React.useState<ProgramStep>({} as ProgramStep);
   const [running, setRunning] = React.useState(false);
@@ -26,39 +28,42 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     const stepParam = navigation.getParam('step') as ProgramStep;
     const [prog] = programs.filter(p => p.slug === slug);
     const [progStep] = prog.outline.sections.filter(p => p.label === stepParam.label);
-    Notifications.addListener(notification => console.log(notification));
+    _notificationSubscription = Notifications.addListener(notification =>
+      navigation.navigate('Workout', { slug, title: prog.title })
+    );
     if (prog) {
       setProgram(prog);
     }
     if (progStep) {
       setWorkout(progStep);
     }
+
+    return () => {
+      _notificationSubscription.remove();
+    };
   }, [navigation.getParam('step')]);
 
   React.useEffect(() => {
     setCurrentDist(distance);
     const slug = navigation.getParam('slug');
     const [prog] = programs.filter(p => p.slug === slug);
-    console.log(distance);
+    console.log(distance, running);
     if (prog) {
       prog.alerts.forEach((alert, index) => {
         if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
           setAlertsShown([...alertsShown, index]);
           setStep(alert.body);
-          Notifications.presentLocalNotificationAsync({
-            body: alert.body,
-            title: alert.title
-          });
+          sendPushNotification(alert.title, alert.body);
         }
       });
     }
-  }, [distance]);
+  }, [running, distance]);
 
   const handleStart = () => {
     setRunning(true);
     setStart(true);
     setReset(false);
-    startLocation();
+    startLocation(program.title);
   };
 
   const handleStop = () => {
@@ -73,17 +78,6 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     setReset(true);
     resetDistance();
     setStep('');
-  };
-
-  const startNotifications = (prog: Program) => {
-    prog.alerts.forEach(alert => {
-      if (distance === alert.distance) {
-        Notifications.presentLocalNotificationAsync({
-          body: alert.body,
-          title: alert.title
-        });
-      }
-    });
   };
 
   return (

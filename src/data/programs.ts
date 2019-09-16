@@ -17,6 +17,7 @@ export const programs: Program[] = [
         title: 'Start Running'
       },
       {
+        // distance: 0.02,
         distance: 1 / 16,
         body: 'Walk for 3/16 of a mile',
         title: 'Start Walking'

@@ -5,6 +5,7 @@ import { NavigationScreenProps } from 'react-navigation';
 import { Layout, Row, Button, Accordion, ProgramTileList } from '../components';
 import { Program, programs } from '../data';
 import { isAndroid, Colors } from '../constants';
+import { registerForPushNotificationsAsync } from '../utility';
 
 interface ProgramScreenProps extends NavigationScreenProps {}
 
@@ -31,8 +32,8 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
 
   const handleStartProgram = async (slug: string, title: string) => {
     navigation.navigate('ProgramMenu', { slug, title });
+    await registerForPushNotificationsAsync();
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    const { status: notifcationStatus } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
       console.log(status);
     }
