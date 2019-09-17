@@ -1,4 +1,4 @@
-import { PeopleState } from './people';
+import { ProgressState } from './progress';
 
 export interface AsyncState<T> {
   response?: T;
@@ -7,5 +7,18 @@ export interface AsyncState<T> {
 }
 
 export interface ApplicationState {
-  People: PeopleState;
+  Progress: ProgressState;
+}
+
+export type ProgressMode = 'started' | 'completed';
+
+export interface ProgressStep {
+  label: string;
+  parent: string;
+}
+
+export interface Progress {
+  slug: string;
+  state: ProgressMode;
+  steps: ProgressStep[];
 }

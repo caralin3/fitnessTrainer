@@ -1,4 +1,4 @@
-import { CalendarScreen } from './CalendarScreen';
+import { AchievementsScreen } from './AchievementsScreen';
 import { HomeScreen } from './HomeScreen';
 import { ProfileScreen } from './ProfileScreen';
 import { ProgramScreen } from './ProgramScreen';
@@ -8,7 +8,7 @@ import { WelcomeScreen } from './WelcomeScreen';
 import { WorkoutScreen } from './WorkoutScreen';
 
 export {
-  CalendarScreen,
+  AchievementsScreen,
   HomeScreen,
   ProfileScreen,
   ProgramScreen,

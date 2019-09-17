@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'remote-redux-devtools';
 import { persistCombineReducers } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { AsyncStorage } from 'react-native';
-import * as people from './people';
+import * as progress from './progress';
 import { ApplicationState } from '.';
 
 // tslint:disable-next-line no-any
@@ -23,7 +23,7 @@ export default (): Store<ApplicationState> => {
   };
 
   const rootReducer = persistCombineReducers<ApplicationState>(persistConfig, {
-    People: people.reducer
+    Progress: progress.reducer
   });
 
   return createStore(rootReducer, undefined, middleware);
