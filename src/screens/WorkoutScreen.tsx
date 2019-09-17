@@ -3,14 +3,21 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Stopwatch } from 'react-native-stopwatch-timer';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { Button, Layout, Row } from '../components';
 import { Program, ProgramStep, programs } from '../data';
 import { Colors } from '../constants';
 import { distance, resetDistance, sendPushNotification, startLocation, stopLocation } from '../utility';
+import { ProgressStep } from '../store';
+import * as progressState from '../store/progress';
 
-interface WorkoutScreenProps extends NavigationScreenProps {}
+interface WorkoutScreenProps extends NavigationScreenProps {
+  completeProgress: (slug: string) => void;
+  updateProgress: (slug: string, step: ProgressStep) => void;
+}
 
-const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation }) => {
+const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ completeProgress, navigation, updateProgress }) => {
   // tslint:disable-next-line no-any
   let _notificationSubscription: any;
   const [program, setProgram] = React.useState<Program>({} as Program);
@@ -18,6 +25,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
   const [running, setRunning] = React.useState(false);
   const [start, setStart] = React.useState(false);
   const [reset, setReset] = React.useState(false);
+  const [complete, setComplete] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState('');
   const [currentDist, setCurrentDist] = React.useState(distance);
   const [alertsShown, setAlertsShown] = React.useState<number[]>([]);
@@ -37,7 +45,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     if (progStep) {
       setWorkout(progStep);
     }
-
+    setComplete(false);
     return () => {
       _notificationSubscription.remove();
     };
@@ -49,17 +57,32 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     const [prog] = programs.filter(p => p.slug === slug);
     console.log(distance);
     if (prog) {
-      prog.alerts
-        .filter(a => a.labels.indexOf(workout.label) !== -1 && a.parents.indexOf(workout.parent) !== -1)
-        .forEach((alert, index) => {
-          if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
-            setAlertsShown([...alertsShown, index]);
-            setStep(alert.body);
-            sendPushNotification(alert.title, alert.body);
-          }
-        });
+      const filteredAlerts = prog.alerts.filter(
+        a => a.labels.indexOf(workout.label) !== -1 && a.parents.indexOf(workout.parent) !== -1
+      );
+      filteredAlerts.forEach((alert, index) => {
+        if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
+          setAlertsShown([...alertsShown, index]);
+          setStep(alert.body);
+          sendPushNotification(alert.title, alert.body);
+        }
+        if (alertsShown.length === filteredAlerts.length) {
+          setRunning(false);
+          setStart(false);
+          setComplete(true);
+          setStep('You completed the program!');
+        }
+      });
     }
   }, [running, start, distance]);
+
+  const updateStep = () => {
+    const newStep: ProgressStep = {
+      label: workout.label,
+      parent: workout.parent
+    };
+    updateProgress(navigation.getParam('slug'), newStep);
+  };
 
   const handleStart = () => {
     setRunning(true);
@@ -83,6 +106,13 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     setAlertsShown([]);
   };
 
+  const handleFinish = () => {
+    completeProgress(navigation.getParam('slug'));
+    updateStep();
+    // @TODO: Nav to summary
+    navigation.goBack();
+  };
+
   return (
     <Layout>
       <View style={styles.container}>
@@ -102,7 +132,11 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
           </View>
         </Row>
         {!running ? (
-          <Button size="lg" style={{ width: 125 }} bgColor={Colors.primary} text="Start" onPress={handleStart} />
+          complete ? (
+            <Button size="lg" style={{ width: 125 }} bgColor={Colors.primary} text="Finish" onPress={handleFinish} />
+          ) : (
+            <Button size="lg" style={{ width: 125 }} bgColor={Colors.primary} text="Start" onPress={handleStart} />
+          )
         ) : (
           <Row style={{ width: '100%' }} align="center" justify="space-around">
             <Button
@@ -130,7 +164,19 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
   );
 };
 
-export const WorkoutScreen = DisconnectedWorkoutScreen;
+const actionCreators = {
+  completeProgress: (slug: string) => progressState.complete(slug),
+  updateProgress: (slug: string, step: ProgressStep) => progressState.update(slug, step)
+};
+
+const mapActionsToProps = (dispatch: Dispatch) => ({
+  ...bindActionCreators(actionCreators, dispatch)
+});
+
+export const WorkoutScreen = connect(
+  null,
+  mapActionsToProps
+)(DisconnectedWorkoutScreen);
 
 const options = {
   container: {
@@ -146,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'space-between',
-    marginBottom: 10
+    marginBottom: 50
   },
   stats: {
     alignItems: 'center'

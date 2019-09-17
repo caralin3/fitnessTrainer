@@ -2,14 +2,14 @@ import React from 'react';
 import { NavigationScreenProps } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Icon, IconType } from '../components/Icon';
-import { CalendarStack, HomeStack, ProfileStack, TimerStack } from './StackNavigator';
+import { AchievementsStack, HomeStack, ProfileStack, TimerStack } from './StackNavigator';
 import { Colors } from '../constants';
 
 export default createBottomTabNavigator(
   {
     Home: HomeStack,
-    Calendar: CalendarStack,
     Timer: TimerStack,
+    Achievements: AchievementsStack,
     Profile: ProfileStack
   },
   {
@@ -20,8 +20,8 @@ export default createBottomTabNavigator(
         let type: IconType = 'MCI';
         if (routeName === 'Home') {
           name = 'run';
-        } else if (routeName === 'Calendar') {
-          name = 'calendar';
+        } else if (routeName === 'Achievements') {
+          name = 'trophy';
         } else if (routeName === 'Timer') {
           name = 'timer';
         } else if (routeName === 'Profile') {

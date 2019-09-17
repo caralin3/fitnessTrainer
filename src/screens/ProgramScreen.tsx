@@ -2,17 +2,25 @@ import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { Layout, Row, Button, Accordion, ProgramTileList } from '../components';
 import { Program, programs } from '../data';
 import { isAndroid, Colors } from '../constants';
 import { registerForPushNotificationsAsync } from '../utility';
+import { ApplicationState, Progress } from '../store';
+import * as progressState from '../store/progress';
 
-interface ProgramScreenProps extends NavigationScreenProps {}
+interface ProgramScreenProps extends NavigationScreenProps {
+  progress: Progress[];
+  startProgress: (slug: string) => void;
+}
 
-const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation }) => {
+const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation, progress, startProgress }) => {
   const scrollRef = React.useRef(null);
   const [program, setProgram] = React.useState<Program>({} as Program);
   const [open, setOpen] = React.useState(-1);
+  const [started, setStarted] = React.useState(false);
 
   React.useEffect(() => {
     const slug = navigation.getParam('slug');
@@ -20,7 +28,23 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
     if (prog) {
       setProgram(prog);
     }
+    if (progress.length > 0) {
+      const [currProgress] = progress.filter(p => p.slug === slug);
+      if (currProgress) {
+        setStarted(currProgress.state === 'started');
+      }
+    }
   }, [navigation.getParam('slug')]);
+
+  React.useEffect(() => {
+    const slug = navigation.getParam('slug');
+    if (progress.length > 0) {
+      const [currProgress] = progress.filter(p => p.slug === slug);
+      if (currProgress) {
+        setStarted(currProgress.state === 'started');
+      }
+    }
+  }, [progress]);
 
   const handleTilePress = (slug: string) => {
     navigation.navigate('Program', { slug });
@@ -31,6 +55,9 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
   };
 
   const handleStartProgram = async (slug: string, title: string) => {
+    if (!started) {
+      startProgress(slug);
+    }
     navigation.navigate('ProgramMenu', { slug, title });
     await registerForPushNotificationsAsync();
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -78,7 +105,7 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
             style={{ marginVertical: 10 }}
             bgColor={Colors.primary}
             size="md"
-            text="Start Program"
+            text={started ? 'Continue Program' : 'Start Program'}
             onPress={() => handleStartProgram(program.slug, program.title)}
           />
           <View style={{ paddingVertical: 10 }}>
@@ -116,7 +143,22 @@ const DisconnectedProgramScreen: React.FC<ProgramScreenProps> = ({ navigation })
   );
 };
 
-export const ProgramScreen = DisconnectedProgramScreen;
+const mapStateToProps = (state: ApplicationState) => ({
+  progress: state.Progress.response
+});
+
+const actionCreators = {
+  startProgress: (slug: string) => progressState.start(slug)
+};
+
+const mapActionsToProps = (dispatch: Dispatch) => ({
+  ...bindActionCreators(actionCreators, dispatch)
+});
+
+export const ProgramScreen = connect(
+  mapStateToProps,
+  mapActionsToProps
+)(DisconnectedProgramScreen);
 
 const styles = StyleSheet.create({
   container: {

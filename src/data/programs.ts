@@ -68,7 +68,13 @@ export const programs: Program[] = [
         parents: ['Week 1'],
         title: 'Start Walking'
       },
-
+      {
+        distance: 1,
+        body: 'You completed 1 mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
+        title: 'Finished'
+      },
       {
         distance: 0,
         body: 'Run for 1/8 of a mile',
@@ -126,6 +132,13 @@ export const programs: Program[] = [
         title: 'Start Walking'
       },
       {
+        distance: 1,
+        body: 'You completed 1 mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Finished'
+      },
+      {
         distance: 0,
         body: 'Run for 3/16 of a mile',
         labels: ['Day 1', 'Day 3', 'Day 5'],
@@ -168,7 +181,7 @@ export const programs: Program[] = [
         title: 'Start Walking'
       },
       {
-        distance: 12 / 6,
+        distance: 12 / 16,
         body: 'Run for 3/16 of a mile',
         labels: ['Day 1', 'Day 3', 'Day 5'],
         parents: ['Week 3'],
@@ -182,11 +195,32 @@ export const programs: Program[] = [
         title: 'Start Walking'
       },
       {
+        distance: 1,
+        body: 'You completed 1 mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Finished'
+      },
+      {
+        distance: 1,
+        body: 'You completed 1 mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
+        title: 'Finished'
+      },
+      {
         distance: 0,
         body: 'Run 1 mile',
         labels: ['Day 1', 'Day 3', 'Day 5'],
         parents: ['Week 4'],
         title: 'Start Running'
+      },
+      {
+        distance: 1,
+        body: 'You completed 1 mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 4'],
+        title: 'Finished'
       }
     ],
     outline: {

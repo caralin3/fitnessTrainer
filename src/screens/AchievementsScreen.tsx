@@ -3,17 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Layout } from '../components';
 
-interface CalendarScreenProps extends NavigationScreenProps {}
+interface AchievementsScreenProps extends NavigationScreenProps {}
 
-const DisconnectedCalendarScreen: React.FC<CalendarScreenProps> = () => {
+const DisconnectedAchievementsScreen: React.FC<AchievementsScreenProps> = () => {
   return (
     <Layout>
-      <Text>Calendar</Text>
+      <Text>Achievements</Text>
     </Layout>
   );
 };
 
-export const CalendarScreen = DisconnectedCalendarScreen;
+export const AchievementsScreen = DisconnectedAchievementsScreen;
 
 const styles = StyleSheet.create({
   container: {

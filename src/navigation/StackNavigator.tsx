@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationScreenProps } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import {
-  CalendarScreen,
+  AchievementsScreen,
   HomeScreen,
   ProfileScreen,
   ProgramScreen,
@@ -65,9 +65,9 @@ export const HomeStack = createStackNavigator(
   stackNavigatorConfig
 );
 
-export const CalendarStack = createStackNavigator(
+export const AchievementsStack = createStackNavigator(
   {
-    Calendar: CalendarScreen
+    Achievements: AchievementsScreen
   },
   stackNavigatorConfig
 );
