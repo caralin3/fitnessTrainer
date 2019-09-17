@@ -14,43 +14,179 @@ export const programs: Program[] = [
       {
         distance: 0,
         body: 'Run for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Running'
       },
       {
         // distance: 0.02,
         distance: 1 / 16,
         body: 'Walk for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Walking'
       },
       {
         distance: 4 / 16,
         body: 'Run for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Running'
       },
       {
         distance: 5 / 16,
         body: 'Walk for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Walking'
       },
       {
         distance: 8 / 16,
         body: 'Run for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Running'
       },
       {
         distance: 9 / 16,
         body: 'Walk for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Walking'
       },
       {
         distance: 12 / 6,
         body: 'Run for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Running'
       },
       {
         distance: 13 / 16,
         body: 'Walk for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 1'],
         title: 'Start Walking'
+      },
+
+      {
+        distance: 0,
+        body: 'Run for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Running'
+      },
+      {
+        distance: 1 / 8,
+        body: 'Walk for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 2 / 8,
+        body: 'Run for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Running'
+      },
+      {
+        distance: 3 / 8,
+        body: 'Walk for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 4 / 8,
+        body: 'Run for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Running'
+      },
+      {
+        distance: 5 / 8,
+        body: 'Walk for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 6 / 8,
+        body: 'Run for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Running'
+      },
+      {
+        distance: 7 / 8,
+        body: 'Walk for 1/8 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 2'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 0,
+        body: 'Run for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Running'
+      },
+      {
+        distance: 3 / 16,
+        body: 'Walk for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 4 / 16,
+        body: 'Run for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Running'
+      },
+      {
+        distance: 7 / 16,
+        body: 'Walk for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 8 / 16,
+        body: 'Run for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Running'
+      },
+      {
+        distance: 11 / 16,
+        body: 'Walk for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 12 / 6,
+        body: 'Run for 3/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Running'
+      },
+      {
+        distance: 15 / 16,
+        body: 'Walk for 1/16 of a mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 3'],
+        title: 'Start Walking'
+      },
+      {
+        distance: 0,
+        body: 'Run 1 mile',
+        labels: ['Day 1', 'Day 3', 'Day 5'],
+        parents: ['Week 4'],
+        title: 'Start Running'
       }
     ],
     outline: {

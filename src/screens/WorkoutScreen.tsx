@@ -27,7 +27,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     const slug = navigation.getParam('slug');
     const stepParam = navigation.getParam('step') as ProgramStep;
     const [prog] = programs.filter(p => p.slug === slug);
-    const [progStep] = prog.outline.sections.filter(p => p.label === stepParam.label);
+    const [progStep] = prog.outline.sections.filter(p => p.label === stepParam.label && p.parent === stepParam.parent);
     _notificationSubscription = Notifications.addListener(notification =>
       navigation.navigate('Workout', { slug, title: prog.title })
     );
@@ -49,13 +49,15 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation })
     const [prog] = programs.filter(p => p.slug === slug);
     console.log(distance);
     if (prog) {
-      prog.alerts.forEach((alert, index) => {
-        if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
-          setAlertsShown([...alertsShown, index]);
-          setStep(alert.body);
-          sendPushNotification(alert.title, alert.body);
-        }
-      });
+      prog.alerts
+        .filter(a => a.labels.indexOf(workout.label) !== -1 && a.parents.indexOf(workout.parent) !== -1)
+        .forEach((alert, index) => {
+          if (running && distance.toFixed(2) === alert.distance.toFixed(2) && alertsShown.indexOf(index) === -1) {
+            setAlertsShown([...alertsShown, index]);
+            setStep(alert.body);
+            sendPushNotification(alert.title, alert.body);
+          }
+        });
     }
   }, [running, start, distance]);
 

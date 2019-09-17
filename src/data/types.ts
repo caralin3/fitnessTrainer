@@ -18,6 +18,8 @@ export interface ProgramStep {
 export interface Alert {
   distance: number;
   body: string;
+  labels: string[];
+  parents: string[];
   title: string;
 }
 

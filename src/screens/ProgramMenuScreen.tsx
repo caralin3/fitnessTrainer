@@ -37,6 +37,7 @@ const DisconnectedProgramMenuScreen: React.FC<ProgramMenuScreenProps> = ({ navig
                   <TouchableOpacity
                     style={{ borderBottomColor: '#ddd', borderBottomWidth: 1 }}
                     key={sect.label}
+                    disabled={sect.description.toLowerCase().includes('rest')}
                     onPress={() =>
                       navigation.navigate('Workout', { slug: program.slug, step: sect, title: program.title })
                     }
@@ -51,7 +52,9 @@ const DisconnectedProgramMenuScreen: React.FC<ProgramMenuScreenProps> = ({ navig
                         <Text style={{ paddingTop: 10 }}>{sect.description}</Text>
                       </View>
                       {/* @TODO: Add completed */}
-                      <Icon size={32} color={Colors.primary} name="keyboard-arrow-right" type="MI" />
+                      {!sect.description.toLowerCase().includes('rest') && (
+                        <Icon size={32} color={Colors.primary} name="keyboard-arrow-right" type="MI" />
+                      )}
                     </Row>
                   </TouchableOpacity>
                 ))}

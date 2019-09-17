@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 16566,
+  "packagerPort": 19003,
+  "packagerPid": 46502,
   "expoServerNgrokUrl": "https://dd-wwm.caralin3.fitnesstrainer.exp.direct",
   "packagerNgrokUrl": "https://packager.dd-wwm.caralin3.fitnesstrainer.exp.direct",
-  "ngrokPid": 16589,
+  "ngrokPid": 46527,
   "webpackServerPort": null
 }
