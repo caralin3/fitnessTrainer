@@ -17,12 +17,14 @@ export interface ProgramStep {
 
 export interface Alert {
   distance: number;
-  message: string;
+  body: string;
+  labels: string[];
+  parents: string[];
   title: string;
 }
 
 export interface Program {
-  // alerts: Alert[];
+  alerts: Alert[];
   category: Category;
   description: string;
   duration: string;
