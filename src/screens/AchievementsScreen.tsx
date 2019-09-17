@@ -8,7 +8,9 @@ interface AchievementsScreenProps extends NavigationScreenProps {}
 const DisconnectedAchievementsScreen: React.FC<AchievementsScreenProps> = () => {
   return (
     <Layout>
-      <Text>Achievements</Text>
+      <View style={styles.container}>
+        <Text style={{ fontSize: 32, paddingHorizontal: 10, textAlign: 'center' }}>Screen is under construction</Text>
+      </View>
     </Layout>
   );
 };
@@ -17,6 +19,8 @@ export const AchievementsScreen = DisconnectedAchievementsScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
   }
 });
