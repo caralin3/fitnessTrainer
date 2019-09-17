@@ -13,10 +13,11 @@ import { ProgressStep } from '../store';
 import * as progressState from '../store/progress';
 
 interface WorkoutScreenProps extends NavigationScreenProps {
+  completeProgress: (slug: string) => void;
   updateProgress: (slug: string, step: ProgressStep) => void;
 }
 
-const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation, updateProgress }) => {
+const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ completeProgress, navigation, updateProgress }) => {
   // tslint:disable-next-line no-any
   let _notificationSubscription: any;
   const [program, setProgram] = React.useState<Program>({} as Program);
@@ -106,6 +107,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation, u
   };
 
   const handleFinish = () => {
+    completeProgress(navigation.getParam('slug'));
     updateStep();
     // @TODO: Nav to summary
     navigation.goBack();
@@ -163,6 +165,7 @@ const DisconnectedWorkoutScreen: React.FC<WorkoutScreenProps> = ({ navigation, u
 };
 
 const actionCreators = {
+  completeProgress: (slug: string) => progressState.complete(slug),
   updateProgress: (slug: string, step: ProgressStep) => progressState.update(slug, step)
 };
 
